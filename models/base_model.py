@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+from uuid import uuid4
+from datetime import datetime as dt
+
+class BaseModel:
+    """ A class that defines all common attributes/methods for other classes in the AirBnB console project"""
+    def __init__(self):
+        """
+        Initializes a new instance of the BaseModel class
+
+        Attributes:
+               id(str) : Unique identifier for the instance
+               created_at(datetime): Date and time for when the instance is created
+               updated_at(datetime): Date and time for when the instance is updated
+        """
+        self.id = str(uuid4()) # type: ignore
+        self.created_at = dt.now() #type: ignore
+        self.updated_at = dt.now() #type: ignore
+    def __str__(self):
+        """
+        Returns a string representation of the instance
+
+        Returns:
+            str: A formatted string containing the class name, id and a dictionary
+            representation of the instance
+        """
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+    def save(self):
+        """Updates the updated_at public attribute"""
+        self.updated_at: dt.now() #type: ignore
+    def to_dict(self):
+        """Returns a dictionary representation of the object
+        Returns:
+            dict: A dictionary representation of the object containing the __class__, created_at, updated_at
+            
+        """
+        dict_copy = self.__dict__.copy()
+        dict_copy['__class__'] = self.__class__.__name__
+        dict_copy['created_at'] = self.created_at.toisostring()
+        dict_copy['updated_at'] = self.updated_at.toisostring()
+        return dict_copy

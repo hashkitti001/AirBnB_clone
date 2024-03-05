@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
             print("Giggity giggity")
       def do_exit(self, line):
             """Command to exit the program"""
-            sys/exit(130)
+            sys.exit(130)
       def do_EOF(self, line):
             """Command to exit the program"""
             sys.exit(130)

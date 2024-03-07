@@ -1,5 +1,6 @@
 import cmd
 import sys
+import os
 class HBNBCommand(cmd.Cmd):
       """Class for the console program for the AirBnB project
           Attributes:
@@ -17,11 +18,16 @@ class HBNBCommand(cmd.Cmd):
             Usage: quagmire
             """
             print("Giggity giggity")
-      def do_exit(self, line):
+      def do_quit(self, line):
             """Command to exit the program"""
             sys.exit(130)
       def do_EOF(self, line):
             """Command to exit the program"""
             sys.exit(130)
+      def do_clear(self, line):
+            os.system("clear")
+      def emptyline(self):
+            """Handles empty line input"""
+            pass
 if __name__ == '__main__':
       HBNBCommand().cmdloop()

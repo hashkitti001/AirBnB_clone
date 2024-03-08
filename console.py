@@ -1,8 +1,10 @@
 import cmd
-import sys
 import os
+import sys
+
 from models.base_model import BaseModel
 import models
+
 
 class HBNBCommand(cmd.Cmd):
     """Class for the console program for the AirBnB project.
@@ -10,10 +12,9 @@ class HBNBCommand(cmd.Cmd):
     Attributes:
         prompt (str): The command prompt string.
     """
-    existing_classes = {
-        "BaseModel": BaseModel,
 
-    }
+    existing_classes = {"BaseModel": BaseModel}
+
     def __init__(self):
         """Initializes a new instance of the HBNBCommand class.
 
@@ -29,23 +30,58 @@ class HBNBCommand(cmd.Cmd):
         Args:
             line (str): The command line arguments (class name).
         """
-        bm_instance = BaseModel()
-        bm_instance.__class__.__name__ = line
-      
         if not line:
             print("** class name missing **")
-        elif self.existing_classes.get(line):
+        elif line in self.existing_classes.keys():
             obj = self.existing_classes[line]()
             obj.save()
             print(obj.id)
-        elif line not in self.existing_classes:
+        else:
             print("** class doesn't exist **")
+
     def do_show(self, line):
-        
-        pass
+        """Prints the string representation of an instance based
+        on the class name and id.
+
+        Args:
+            line (str): The command line arguments (separated by spaces).
+        """
+        """Print the str of an instance"""
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in self.existing_classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif len(args) == 2:
+            key = args[0] + "." + args[1]
+            working_obj = models.storage.all()
+            if working_obj.get(key):
+                print(working_obj[key])
+            else:
+                print("** no instance found **")
+                    
+
 
     def do_destroy(self, line):
-        pass
+        """Destroys the item with the id specified in the json file"""
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in self.existing_classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif len(args) == 2:
+            key = args[0] + "." + args[1]
+            working_obj = models.storage.all()
+            if working_obj.get(key):
+               del working_obj[key]
+               models.storage.save()
+            else:
+                print("** no instance found **")
+        
 
     def do_all(self, line):
         pass
@@ -72,3 +108,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
+

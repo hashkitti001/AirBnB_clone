@@ -10,8 +10,9 @@ class HBNBCommand(cmd.Cmd):
     Attributes:
         prompt (str): The command prompt string.
     """
-    all_classes = {
-        "BaseModel": BaseModel
+    existing_classes = {
+        "BaseModel": BaseModel,
+
     }
     def __init__(self):
         """Initializes a new instance of the HBNBCommand class.
@@ -30,16 +31,17 @@ class HBNBCommand(cmd.Cmd):
         """
         bm_instance = BaseModel()
         bm_instance.__class__.__name__ = line
-
+      
         if not line:
             print("** class name missing **")
-        elif self.all_classes.get(line):
-            obj = self.all_classes[line]
-        else:
-            bm_instance.save()
-            print(bm_instance.id)
-
+        elif self.existing_classes.get(line):
+            obj = self.existing_classes[line]()
+            obj.save()
+            print(obj.id)
+        elif line not in self.existing_classes:
+            print("** class doesn't exist **")
     def do_show(self, line):
+        
         pass
 
     def do_destroy(self, line):

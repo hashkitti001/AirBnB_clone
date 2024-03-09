@@ -1,10 +1,11 @@
 import cmd
 import os
 import sys
+from typing import ItemsView
 
 from models.base_model import BaseModel
 import models
-
+import json
 
 class HBNBCommand(cmd.Cmd):
     """Class for the console program for the AirBnB project.
@@ -84,7 +85,23 @@ class HBNBCommand(cmd.Cmd):
         
 
     def do_all(self, line):
-        pass
+        """Prints a string representation of all items with the specified class"""
+        working_obj = models.storage.all()
+        result = []
+         
+        if line:
+            if line in self.existing_classes:
+                for key, val in working_obj.items():
+                    splitkey = key.split(".")
+                    if splitkey[0] == line:
+                        result.append(str(val))
+            else:
+                print("** class doesn't exist **")
+        else:
+            for v in working_obj.values():
+                result.append(str(v))
+        if result != []:
+            print(result)            
 
     def do_update(self, line):
         pass

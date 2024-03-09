@@ -2,6 +2,7 @@ from models.base_model import BaseModel
 import models
 import cmd
 import os
+from models.city import City
 from models.place import Place
 from models.review import Review
 from models.user import User
@@ -15,11 +16,12 @@ class HBNBCommand(cmd.Cmd):
     """
     existing_classes = {
         "BaseModel": BaseModel,
-        "User": User,
+        "City": City,
         "State": State,
         "Amenity": Amenity,
         "Place": Place,
-        "Review": Review
+        "Review": Review,
+        "User": User,
         }
 
     def __init__(self):

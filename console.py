@@ -1,8 +1,11 @@
+from models.amenity import Amenity
 from models.base_model import BaseModel
 import models
 import cmd
 import os
-
+from models.user import User
+from models.state import State
+from models.amenity import Amenity
 
 class HBNBCommand(cmd.Cmd):
     """Class for the console program for the AirBnB project.
@@ -10,8 +13,12 @@ class HBNBCommand(cmd.Cmd):
     Attributes:
         prompt (str): The command prompt string.
     """
-
-    existing_classes = {"BaseModel": BaseModel}
+    existing_classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "Amenity": Amenity
+        }
 
     def __init__(self):
         """Initializes a new instance of the HBNBCommand class.

@@ -1,7 +1,8 @@
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
+
+
 class User(BaseModel):
-    """Class representing a user with specific attributes"""
+    """Class representing a user that inherits from the BaseModel class"""
     def __init__(self):
         """Initializes a new instance of the User class"""
         super().__init__()

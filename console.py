@@ -1,7 +1,7 @@
+from ast import arg
 import cmd
 import os
 import sys
-from typing import ItemsView
 
 from models.base_model import BaseModel
 import models
@@ -104,8 +104,32 @@ class HBNBCommand(cmd.Cmd):
             print(result)            
 
     def do_update(self, line):
-        pass
-
+          """Updates an attribute of an object entry with the specified classname and id"""
+          args = line.split()
+          forbidden_atts = ['created_at', 'updated_at', 'id']
+          if len(args) == 0:
+              print("** class name missing **")
+          elif(args[0] not in self.existing_classes):
+              print("** class doesn't exist **")
+          elif len(args) == 1:
+               print("** instance id missing **")
+          elif len(args) == 2 or args[2] in forbidden_atts:
+               print("** attribute name missing **")
+          elif len(args) == 3:
+                print("** value missing **")
+          else:
+              working_objs = models.storage.all()
+              key = "{}.{}".format(args[0], args[1])
+              if key in working_objs:
+                  value = working_objs.get(key)
+                  try:
+                      attr = getattr(value, args[2])
+                      setattr(value, args[2], type(attr)(args[3]))
+                  except AttributeError:
+                      setattr(value, args[2], args[3])
+                  models.storage.save()
+              else:
+                  print("** no instance found **")
     def do_quit(self, line):
         """Command to exit the program."""
         return True
@@ -125,4 +149,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
-

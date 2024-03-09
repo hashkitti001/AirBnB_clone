@@ -32,11 +32,12 @@ class BaseModel:
             if 'updated_at' not in kwargs:
                 self.updated_at = dt.now()
         else:
-            self.id = str(uuid4())  
-            self.created_at = dt.now() 
+            self.id = str(uuid4())
+            self.created_at = dt.now()
             self.updated_at = dt.now()
         if not kwargs or 'id' not in kwargs:
             models.storage.new(self)
+
     def __str__(self):
         """
         Returns a string representation of the instance
@@ -53,6 +54,7 @@ class BaseModel:
         """Updates the updated_at public attribute"""
         self.updated_at = dt.now()
         models.storage.save()
+
     def to_dict(self):
         """Returns a dictionary representation of the object
         Returns:
@@ -64,10 +66,3 @@ class BaseModel:
         dict_copy['created_at'] = self.created_at.isoformat()
         dict_copy['updated_at'] = self.updated_at.isoformat()
         return dict_copy
-
-# my_dict = {'id': '483a87ad-5f2e-4e26-a269-c797878136ff',
-#            'created_at': '2024-03-07T08:18:14.197380',
-#            'updated_at': '2024-03-07T08:18:14.197380',
-#            'name': 'My Object'}
-
-# new_object = BaseModel(**my_dict)

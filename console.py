@@ -3,10 +3,10 @@ import models
 import cmd
 import os
 from models.place import Place
+from models.review import Review
 from models.user import User
 from models.state import State
 from models.amenity import Amenity
-
 class HBNBCommand(cmd.Cmd):
     """Class for the console program for the AirBnB project.
 
@@ -18,7 +18,8 @@ class HBNBCommand(cmd.Cmd):
         "User": User,
         "State": State,
         "Amenity": Amenity,
-        "Place": Place
+        "Place": Place,
+        "Review": Review
         }
 
     def __init__(self):

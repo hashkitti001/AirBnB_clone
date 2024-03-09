@@ -1,8 +1,8 @@
-from models.amenity import Amenity
 from models.base_model import BaseModel
 import models
 import cmd
 import os
+from models.place import Place
 from models.user import User
 from models.state import State
 from models.amenity import Amenity
@@ -17,7 +17,8 @@ class HBNBCommand(cmd.Cmd):
         "BaseModel": BaseModel,
         "User": User,
         "State": State,
-        "Amenity": Amenity
+        "Amenity": Amenity,
+        "Place": Place
         }
 
     def __init__(self):

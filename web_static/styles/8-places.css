@@ -2,7 +2,11 @@
     font-size: 30px;
     margin: 15px;
 }
-
+.place-items{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 article {
     width: 390px;
     padding: 20px;
